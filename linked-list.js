@@ -147,6 +147,7 @@ class LinkedList {
       //since the Node class only has a .next property, we can't refer backwards
       if(i === idx - 1){
         //change the .next property on the new Node to the .next of currNode
+        //(the original Node at the target idx)
         newNode.next = currNode.next;
         //change the .next property of currNode to the new Node
         currNode.next = newNode;
@@ -158,7 +159,22 @@ class LinkedList {
   /** removeAt(idx): return & remove item at idx, */
 
   removeAt(idx) {
-
+    let currNode = this.head;
+    let removedNode;
+    //iterate over the linked list to locate the Node before the target idx
+    for(let i = 0; i < idx; i++){
+      if(i === idx - 1){
+        //save the Node at the target idx
+        removedNode = currNode.next;
+        //change the .next of the Node before the target idx to the Node after target idx
+        currNode.next = currNode.next.next
+        //change the .next of the Node at the target idx to null
+        removedNode.next = null;
+      }
+      currNode = currNode.next
+    }
+    //return the saved Node
+    return removedNode;
   }
 
   /** average(): return an average of all values in the list */
