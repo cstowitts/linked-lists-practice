@@ -119,22 +119,14 @@ class LinkedList {
   setAt(idx, val) {
      //start at the head node
      let currNode = this.head;
-     const newVal = new Node(val);
+     //we don't need to create a new Node, 
+     //we just need to change the val of the existing Node at the desired idx
+
      //iterate over each node until you reach the idx-th node
      for(let i = 0; i <= idx; i++){
-      //when you get to the node before the desired node, change it's .next
-      //to the new Node
-      if(i === idx - 1){
-        currNode.next = newVal;
-      }
       if(i === idx){
-        //retain the current value at idx's .next Node
-        let afterNewVal = currNode.next;
-        //change Node at desired idx to the new Node
-        currNode = newVal;
-        //and update the new Node at the desired idx's 
-        //.next to the following Node
-        currNode.next = afterNewVal;
+        //update the val property of the Node at the desired idx
+        currNode.val = val;
         //we don't need to continue traversing once we find the right Node
         break;
       }
@@ -145,7 +137,22 @@ class LinkedList {
   /** insertAt(idx, val): add node w/val before idx. */
 
   insertAt(idx, val) {
+    //start at the head node
+    let currNode = this.head;
+    const newNode = new Node(val);
 
+    //iterate over each node until you reach the idx-th node
+    for(let i = 0; i < idx; i++){
+      //we need to start at the node before the target idx
+      //since the Node class only has a .next property, we can't refer backwards
+      if(i === idx - 1){
+        //change the .next property on the new Node to the .next of currNode
+        newNode.next = currNode.next;
+        //change the .next property of currNode to the new Node
+        currNode.next = newNode;
+      }
+      currNode = currNode.next;
+    }
   }
 
   /** removeAt(idx): return & remove item at idx, */
