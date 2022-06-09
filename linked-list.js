@@ -180,8 +180,33 @@ class LinkedList {
   /** average(): return an average of all values in the list */
 
   average() {
-    
+    //the average of no Nodes is 0
+    let sum = 0;
+    let nodeCount = 0;
+    let average;
+    let currNode = this.head;
+    //iterate through the linked list until there's no Nodes left
+    //(aka Node val is null)
+    while(currNode.val !== null){
+      //increment the Node counter variable
+      nodeCount++;
+      //add the current Node's value to the average
+      sum += currNode.val;
+      //move to the next Node
+      currNode = currNode.next;
+    }
+    average = sum/nodeCount;
+    return average;
   }
 }
+
+/** fun fact:
+ * 
+ * ++sum would increment sum and then evaluate it
+ * sum++ would evaluate sum and then increment it
+ * 
+ * += is same as sum++
+ * 
+ */
 
 module.exports = LinkedList;
